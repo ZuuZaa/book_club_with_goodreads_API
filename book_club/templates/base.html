@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>KitabKlubu</title>
+    {% endif %}
+    <style>
+        #navbarDropdown::after{
+            color: rgb(179, 176, 18);
+        }
+        .asteriskField {
+            display: none;
+        }
+        #user-img-comment{
+            width:60px;
+            height:60px;
+        }
+    </style>
+</head>
+
+<body style="background-color:rgb(233, 233, 233);" class="text-dark">
+    <header class="site-header" style="background-color:rgb(21, 45, 63);">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent mb-0">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'book-home' %}">
+                    <span class="display-4" style="color:rgb(44, 143, 14);">KitabKlubu</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link pb-2" href="{% url 'vote_page' %}">
+                                <span style="color:rgb(193, 209, 211);">səvermə</span><span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'archive' %}">
+                                <span style="color:rgb(193, 209, 211);">arxiv</span><span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'book-about' %}">
+                                <span style="color:rgb(193, 209, 211);">haqqımızda</span></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle text-dark lead" href="#" id="navbarDropdown"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span style="color: rgb(179, 176, 18);">{{user.first_name}} {{user.last_name}}</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:rgb(233, 233, 233);">
+                                <a class="dropdown-item" href="{% url 'profile' %}">Profil</a>
+                                <a class="dropdown-item" href="#">Mesajlar</a>
+                                <div class="dropdown-divider" style="border-color:rgb(206, 206, 206)"></div>
+                                <a class="dropdown-item" href="{% url 'logout' %}"><span
+                                        class="text-info">Çıxış</span></a>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'login' %}" class="nav-link"> <span style="color:rgb(193, 209, 211);">Daxil
+                                    Olun</span><span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'register' %}" class="nav-link"><span
+                                    style="color:rgb(179, 176, 18);">Qeydiyyat</span><span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 col-sm-12">
+                    <div class="message text-center">
+                        {% if messages %}
+                        {%for message in messages %}
+                        <div class="alert alert-{{ message.tags}}">
+                            {{message}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script>
+        $("#div_id_username label").html("E-mail adresiniz")
+    </script>
+</body>
+
+</html>

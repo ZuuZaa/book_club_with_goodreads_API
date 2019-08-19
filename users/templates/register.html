@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3 col-sm-12 p-4">
+        <div class="content-section">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4" >
+                        Kitab Klubumuza Qoşulun
+                    </legend>
+                    {{ form | crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-block btn-info" type="submit">qeydiyyatdan keçin</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">Kİtab Klubumuzun üzvüsünüzsə </small>
+                <a href="{% url 'login' %}" class="small" style="text-decoration:none"><span class="text-info"> daxil olun</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

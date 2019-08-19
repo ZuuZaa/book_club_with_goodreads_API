@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="content-section py-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card p-5 mx-4">
+                <div class="row">
+                    <div class="col-5">
+                        <img class="rounded-circle account-img w-100" src="{{ user.profile.image.url }}" alt=""
+                            style="height: 200px">
+                    </div>
+                    <div class="col-7">
+                        <h1 class="account-heading" style="color:rgb(102, 185, 192);">
+                            {{user.first_name}} {{user.last_name}}
+                        </h1>
+                        <p class="text-muted">
+                            {{user.username}}
+                        </p>
+                        <p class="text-muted">
+                            {{user.profile.bday}}
+                        </p>
+                        <p class="text-info">
+                            {{user.profile.genre}}
+                        </p>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-center ">
+                    <div class="col">
+                        <p class="text-dark ">
+                            {{user.profile.bio}}
+                        </p>
+                    </div>
+                </div>
+                <form action="{% url 'editprofile' %}" method="GET">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <button class="btn btn-block btn-outline-info" type="submit">Profilini yenilə</button>
+                    </div>
+                </form>
+                <hr>
+                <div class="row">
+                    {% for book in readen_books %}
+                    <div class="col-3">
+                        <a href="{% url 'discussion' book.readen_book.id %}"><img src="{{ book.readen_book.image }}" alt=""></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

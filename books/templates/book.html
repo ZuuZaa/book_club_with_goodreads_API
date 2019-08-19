@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class = 'text-center'>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class ='container'>
+<form action = '{% url "search" %}' method = 'get' id='search'>
+{% csrf_token %}
+<button type="submit" class ='btn btn-outline-secondary my-4 px-5'><span class="lead">Səsvermə üçün öz kitabınızı daxil edin<span></button>
+</form>
+<table class="table table-hover">
+  <tbody>
+  {% for book in books_in_vote %}
+    <tr>
+        <td><img src = '{{book.book_in_vote.image}}'> </td>
+        <td><p class='text-info'>{{book.book_in_vote.title}}</p></td> 
+        <td><p class='text-dark'>{{book.book_in_vote.author}}</p></td>
+        <td><p class='text-dark'>{{book.vote}}</p></td>
+       <td><form action='{% url "votebook" book.book_in_vote.id %}' method='post' name='book_vote'>
+            {% csrf_token %}
+            <button class ='btn btn-info' type='submit' name='vote'>səs ver</button>
+            </form></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class = 'text-center'>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class ='container'>
+<div class="row">
+    <div class="col-md-6 offset-md-3 col-sm-12 my-md-5">
+        <form action = '{% url "search" %}' method ='post' id='search'>
+            {% csrf_token %}
+            <fieldset class="form-group">
+                    <legend class="mb-4 text-dark" >
+                       Səsvermədə iştirak etməsini istədiyiniz kitabın adını daxil edin
+                    </legend>
+                    <hr>
+            <div class="input-group">
+                <input type="text" name="book_name" maxlength="50" id="id_book_name" class="form-control text-center mt-2" placeholder="kitabı daxil edin" required>
+                </fieldset>
+                <div class="input-group-append form group">
+                    <button class="btn btn-block btn-info" type="submit"><span class="lead">Axtar<span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table table-hover">
+  <tbody>
+  {% for book in books_from_api %}
+    <tr>
+        <td><img src = '{{book.image}}'></td>
+        <td><p class='text-info'>{{book.title}}</p></td> 
+        <td><p class='text-dark'>{{book.author}}</p></td>
+        <td><p class='text-dark'>{{book.year}}</p></td>
+    <form action='{% url "choose_book" %}' method='post'>
+        {% csrf_token %}
+        <td><button class ='btn btn-info' type='submit' name='index' value='{{ search_title }}-{{ forloop.counter0 }}'>seç</button>
+      </form></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock content %}

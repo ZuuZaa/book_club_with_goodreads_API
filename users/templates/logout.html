@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-md-6 offset-md-3 col-sm-12 p-4">
+        <div class=" pb-3 text-center lead">
+            Çıxış uğurla gərçəkləşdi, gününüz gözəl keçsin!
+        </div>
+        <div class="border-top pt-3">
+            <span class="text-muted">Kitab Klubuna yenidən </span>
+            <a href="{% url 'login' %}" style="text-decoration:none"><span class="text-info"> daxil olun</span></a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

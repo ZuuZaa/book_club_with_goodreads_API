@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class = 'container'>
+<div class="row py-3">
+  <div class="col-md-6 col-sm-12">
+      <legend class='text-dark text-center'>Müzakirə edilmiş kitablar</legend>
+  </div>
+  <div class="col-md-6 col-sm-12">
+      <form class="form-inline" method='post'>
+        {% csrf_token %}
+        <input class="form-control mr-2 px-4 text-center" type="search" name='book_name' placeholder="kitabın adını daxil edin" aria-label="Search">
+        <button class="btn btn-outline-secondary px-3" type="submit">arxivdə axtar</button>
+      </form>
+  </div>
+</div>
+    
+
+<table class="table table-hover">
+  <tbody>
+  {% for book in books_in_vote %}
+    <tr>
+        <td><img class='h-25' src = '{{book.image}}'> </td>
+        <td><p class='text-info'>{{book.title}}</p></td> 
+        <td><p class='text-dark'>{{book.author}}</p></td>
+       <td><a href="{% url 'discussion' book.id %}" style="text-decoration:none"><span style="color:rgb(86, 146, 150)">müzakirəyə qoşul</span>
+       </a>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock content %}
