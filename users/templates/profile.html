@@ -36,20 +36,22 @@
                         </p>
                     </div>
                 </div>
+
+                <hr>
+                <div class="row">
+                    {% for book in readen_books %}
+                    <div class="col-2 p-1">
+                        <a href="{% url 'discussion' book.readen_book.id %}"><div id="readen-book-img-holder"><img src="{{ book.readen_book.image }}" class="w-100 h-100" alt=""></div></a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <hr>
                 <form action="{% url 'editprofile' %}" method="GET">
                     {% csrf_token %}
                     <div class="form-group">
                         <button class="btn btn-block btn-outline-info" type="submit">Profilini yenilə</button>
                     </div>
                 </form>
-                <hr>
-                <div class="row">
-                    {% for book in readen_books %}
-                    <div class="col-3">
-                        <a href="{% url 'discussion' book.readen_book.id %}"><img src="{{ book.readen_book.image }}" alt=""></a>
-                    </div>
-                    {% endfor %}
-                </div>
             </div>
         </div>
     </div>
